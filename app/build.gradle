@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.littlehotspot.www.ssdpreceiver"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "versionCode"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //配置keystore签名
+    signingConfigs {
+
+        release {
+            storeFile file("/files/SavorAds.keystore")
+            storePassword "savorAds@savor.com"
+            keyAlias "SavorADS"
+            keyPassword "savorAds@savor.com"
+        }
+    }
+
+    buildTypes {
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled false
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    productFlavors {
+        rerdian {}
+        le {}
+//        xiaomi {}
+//        openqq {}
+//        huawei {}
+//        wandoujia {}
+//        _360 {}
+//        baidu {}
+//        wostore{}
+//        anzhi{}
+//        weixin{}
+//        oppo {}
+//        vivo {}
+//        lenovo {}
+//        flyme {}
+//        pp {}
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation project(':SSDP-lib')
+}
